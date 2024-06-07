@@ -1,0 +1,33 @@
+server:
+  port: 9002
+  servlet:
+    context-path: /api/v1/hikari
+spring:
+  application:
+    name: hikari-demo
+  profiles:
+    active: dev
+  jpa:
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/datasource-demo?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      connection-timeout: 30000
+      max-lifetime: 3600000
+logging:
+  level:
+#    com.zaxxer.hikari: DEBUG
+    com.zaxxer.hikari.HikariConfig: DEBUG
+    com.zaxxer.hikari.HikariDataSource: DEBUG

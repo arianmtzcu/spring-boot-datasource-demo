@@ -1,0 +1,29 @@
+server:
+  port: 9001
+  servlet:
+    context-path: /api/v1/c3p0
+spring:
+  application:
+    name: hikari-demo
+  profiles:
+    active: dev
+  jpa:
+    show-sql: false
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.mchange.v2.c3p0.ComboPooledDataSource
+    url: jdbc:mysql://localhost:3306/datasource-demo?useSSL=false&serverTimezone=UTC
+    username: root
+    password: root
+logging:
+  level:
+#    com.mchange: DEBUG
+    com.mchange.v2.resourcepool: DEBUG
+#    com.mchange.v2.c3p0: DEBUG
+#    com.mchange.v2.c3p0.impl: DEBUG

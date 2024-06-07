@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>2.7.18</version>
+    </parent>
+
+    <groupId>com.example.arian</groupId>
+    <artifactId>spring-boot-datasource-demo</artifactId>
+    <version>1.0.0</version>
+    <name>spring-boot-datasource-demo</name>
+    <description>Spring Boot Datasource Demo</description>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>core-lib-demo</module>
+        <module>hikari-demo</module>
+        <module>c3p0-demo</module>
+    </modules>
+
+    <properties>
+        <java.version>11</java.version>
+        <surefire.skip>false</surefire.skip>
+        <lombok.version>1.18.32</lombok.version>
+        <mapstruct.version>1.5.3.Final</mapstruct.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <pluginManagement>
+            <plugins>
+                <!-- resources -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <configuration>
+                        <escapeString>\</escapeString>
+                    </configuration>
+                </plugin>
+                <!-- package jar -->
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <executions>
+                        <execution>
+                            <id>repackage-execution</id>
+                            <goals>
+                                <goal>build-info</goal>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- compile lombok & mapstruct -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <source>11</source>
+                        <target>11</target>
+                        <release>11</release>
+                        <showDeprecation>true</showDeprecation>
+                        <showWarnings>true</showWarnings>
+                        <failOnError>true</failOnError>
+                        <forceJavacCompilerUse>true</forceJavacCompilerUse>
+                        <useIncrementalCompilation>false</useIncrementalCompilation>
+                        <parameters>true</parameters>
+                        <annotationProcessorPaths>
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+                                <version>${lombok.version}</version>
+                            </path>
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${mapstruct.version}</version>
+                            </path>
+                        </annotationProcessorPaths>
+                    </configuration>
+                </plugin>
+                <!-- run test -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <skipTests>${surefire.skip}</skipTests>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+</project>

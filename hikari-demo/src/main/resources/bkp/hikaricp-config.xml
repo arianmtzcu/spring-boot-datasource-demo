@@ -1,0 +1,22 @@
+<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+    <property name="poolName" value="mercatus_connection_pool" />
+    <property name="dataSourceClassName" value="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"/>
+    <property name="maximumPoolSize" value="50" />
+    <property name="maxLifetime" value="60000" />
+    <property name="idleTimeout" value="30000" />
+    <property name="dataSourceProperties">
+        <props>
+            <prop key="url">${jdbc.url}</prop>
+            <prop key="user">${jdbc.username}</prop>
+            <prop key="password">${jdbc.password}</prop>
+            <prop key="prepStmtCacheSize">250</prop>
+            <prop key="prepStmtCacheSqlLimit">2048</prop>
+            <prop key="cachePrepStmts">true</prop>
+            <prop key="useServerPrepStmts">true</prop>
+        </props>
+    </property>
+</bean>
+
+<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+    <constructor-arg ref="hikariConfig"/>
+</bean>
